@@ -1,8 +1,16 @@
-window.onload = (event) => {
-    // for (let i = 0; i < 10; i++) {
-    //     let newPlant = document.createElement("plant");
-    //     document.getElementById("plantContainer").appendChild(newPlant);
-    // }
+window.onload = async () => {
+    const response = await fetch("/plants");
+    const savedSeeds = await response.json();
+
+    const pots = document.querySelectorAll("pot-");
+    for (let i = 0; i < savedSeeds.length; i++) {
+        const seed = savedSeeds[i];
+        const plant = document.createElement("plant-");
+        plant.style.background = seed.color;
+        plant.innerHTML = seed.timestamp;
+        pots[seed.position || 0].appendChild(plant);
+        pots[seed.position || 0].hasPlant = true; // Mark as filled
+    }
 };
 
 function changeColor(event) {
@@ -80,17 +88,31 @@ customElements.define("room-", Room);
 let rose = new Seed("Rose", "red");
 let selectedSeed = rose;
 
-function plantSeed(event, seed) {
+async function plantSeed(event, seed) {
     console.log("planting seed");
+    const timestamp = await getServerTime();
+    seed.plantedTimeStamp = timestamp;
     let plant = document.createElement("plant-");
     plant.style.background = seed.color;
+    plant.innerHTML = seed.plantedTimeStamp;
     event.target.appendChild(plant);
     console.log(seed.plantedTimeStamp);
+
+    await fetch("/plant", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            name: seed.name,
+            color: seed.color,
+            timestamp: timestamp,
+            position: event.target.dataset.index || 0, // Optional: which pot?
+        }),
+    });
 }
 
 async function getServerTime() {
     const response = await fetch("/timestamp");
     if (!response.ok) throw new Error("Failed to fetch timestamp");
     const data = await response.json();
-    return data;
+    return data.timestamp;
 }
