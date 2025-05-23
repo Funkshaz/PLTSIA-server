@@ -1,0 +1,44 @@
+plant- {
+    height:100%;
+    width:100%;
+    display:block;
+    background:red;
+}
+
+container- {
+    position: relative;
+    display:grid;
+    width:fit-content;
+    height:32px;
+    padding:4px;
+    grid-template-columns: 32px 32px 32px 32px;
+    grid-gap:4px;
+    border: 1px solid black;
+}
+
+.message-box {
+    position:absolute;
+    background:white;
+    border:1px solid red;
+    border-radius: 2px;
+    padding:2px;
+    top:0;
+    left:50%;
+    transform: translate(-50%,-100%);
+}
+
+pot- {
+    position:relative;
+    display:inline-block;
+    width:32px;
+    height:32px;
+}
+
+pot-:hover {
+    border:1px dashed black;
+}
+
+room- {
+    position:relative;
+    padding:32px;
+}
