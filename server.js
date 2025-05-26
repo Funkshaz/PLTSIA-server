@@ -1,10 +1,36 @@
-const fs = require("fs");
-const path = require("path");
 const express = require("express");
+const { MongoClient } = require("mongodb");
 const app = express();
-const PORT = 3000;
-const DATA_FILE = path.join(__dirname, "plantings.json");
+const PORT = process.env.POST || 3000;
 
+require("dotenv").config();
+const uri = process.env.MONGO_URI;
+const client = new MongoClient(uri);
+
+let plantingsCollection;
+
+async function connectToDB() {
+    try {
+        await client.connect();
+        const database = client.db("pltsia");
+        plantingsCollection = database.collection("plantings");
+        console.log("Connected to MongoDB");
+    } catch (error) {
+        console.error("MongoDB connection error:", error);
+    }
+}
+
+connectToDB();
+
+app.use(express.json());
+
+app.post('/plant', async (req, res) => {
+    const seed = req.body;
+    try {
+        await plantingsCollection
+    }
+});
+/*
 app.use(express.static("public"));
 app.use(express.json());
 
@@ -30,3 +56,4 @@ app.get("/plants", (req, res) => {
     const data = fs.existsSync(DATA_FILE) ? fs.readFileSync(DATA_FILE) : "[]";
     res.json(JSON.parse(data));
 });
+*/
