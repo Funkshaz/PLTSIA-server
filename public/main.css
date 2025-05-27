@@ -1,33 +1,41 @@
 body {
-  font-family: Arial, sans-serif;
-  padding: 1rem;
-  background-color: #eef6ea;
-  text-align: center;
-}
-
-#garden {
-  display: grid;
-  grid-template-columns: repeat(3, 100px);
-  grid-gap: 10px;
-  justify-content: center;
-  margin-top: 1rem;
-}
-
-.soil-tile {
-  width: 100px;
-  height: 100px;
-  background-color: #8B5E3C; /* soil brown */
-  border: 2px solid #5A3E1B;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 3rem;
-  line-height: 100px;
-  color: white;
-  user-select: none;
-  transition: background-color 0.3s ease;
-}
-
-.soil-tile.planted {
-  background-color: #e74c3c; /* red to indicate planted */
-  cursor: default;
-}
+    font-family: sans-serif;
+    padding: 2rem;
+    background-color: #eef6ea;
+    text-align: center;
+  }
+  
+  #garden {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 12px;
+    justify-content: center;
+  }
+  
+  .soil-tile {
+    width: 100px;
+    height: 100px;
+    background-color: #8b5e3c;
+    border: 2px solid #5a3e1b;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 0.3s ease;
+  }
+  
+  .soil-tile.planted {
+    background-color: #6e4225;
+    cursor: default;
+  }
+  
+  .soil-tile img {
+    width: 32px;
+    height: 32px;
+    image-rendering: pixelated;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  
