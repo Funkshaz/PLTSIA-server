@@ -27,9 +27,25 @@ app.use(express.json());
 app.post('/plant', async (req, res) => {
     const seed = req.body;
     try {
-        await plantingsCollection
+        await plantingsCollection.insertOne(seed);
+        res.status(201).send('Seed planted!');
+    } catch (error) {
+        res.status(500).send('Error planting seed.');
     }
 });
+
+app.get('/plantings', async (req, res) => {
+    try {
+        const plantings = await plantingsCollection.find().toArray();
+        res.json(plantings);
+    } catch {
+        res.status(500).send('Error retrieving plantings');
+    }
+});
+
+app.listen(port, () => {
+    console.log(`Server is running on ${port}`);
+})
 /*
 app.use(express.static("public"));
 app.use(express.json());
