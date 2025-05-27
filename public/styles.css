@@ -1,0 +1,30 @@
+body {
+    margin: 0;
+    overflow: hidden;
+    background: #d0f0e0;
+    font-family: sans-serif;
+  }
+  
+  #game-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
+  }
+  
+  #game-area {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: transform 0.1s linear;
+  }
+  
+  .tile {
+    width: 64px;
+    height: 64px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    position: absolute;
+    background-size: cover;
+  }
+  
