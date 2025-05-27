@@ -1,35 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
         <meta charset="UTF-8" />
-        <title>PLTSIA Garden</title>
-        <link rel="stylesheet" href="main.css" />
+        <title>Botanical Garden</title>
+        <link rel="stylesheet" href="styles.css" />
     </head>
     <body>
-        <h1>Plant Your Seeds!</h1>
-        <div id="garden">
-            <div class="soil-tile" data-id="tile-1"></div>
-            <div class="soil-tile" data-id="tile-2"></div>
-            <div class="soil-tile" data-id="tile-3"></div>
-            <div class="soil-tile" data-id="tile-4"></div>
-            <div class="soil-tile" data-id="tile-5"></div>
-            <div class="soil-tile" data-id="tile-6"></div>
-            <div class="soil-tile" data-id="tile-7"></div>
-            <div class="soil-tile" data-id="tile-8"></div>
-            <div class="soil-tile" data-id="tile-9"></div>
-            <div class="soil-tile" data-id="tile-10"></div>
-            <div class="soil-tile" data-id="tile-11"></div>
-            <div class="soil-tile" data-id="tile-12"></div>
-        </div>
         <button onclick="logout()">Logout</button>
-        <script>
-            function logout() {
-                fetch("/logout", {
-                    method: "POST",
-                    credentials: "include",
-                }).then(() => (location.href = "/login.html"));
-            }
-        </script>
+        <div id="game-container">
+            <div id="game-area"></div>
+        </div>
         <script src="main.js"></script>
     </body>
 </html>

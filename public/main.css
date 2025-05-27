@@ -1,41 +1,30 @@
 body {
-    font-family: sans-serif;
-    padding: 2rem;
-    background-color: #eef6ea;
-    text-align: center;
-  }
-  
-  #garden {
-    display: grid;
-    grid-template-columns: repeat(3, 100px);
-    grid-gap: 12px;
-    justify-content: center;
-  }
-  
-  .soil-tile {
-    width: 100px;
-    height: 100px;
-    background-color: #8b5e3c;
-    border: 2px solid #5a3e1b;
-    border-radius: 8px;
-    cursor: pointer;
-    position: relative;
+    margin: 0;
     overflow: hidden;
-    transition: background-color 0.3s ease;
+    background: #d0f0e0;
+    font-family: sans-serif;
   }
   
-  .soil-tile.planted {
-    background-color: #6e4225;
-    cursor: default;
+  #game-container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    position: relative;
   }
   
-  .soil-tile img {
-    width: 32px;
-    height: 32px;
-    image-rendering: pixelated;
+  #game-area {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    top: 0;
+    left: 0;
+    transition: transform 0.1s linear;
+  }
+  
+  .tile {
+    width: 64px;
+    height: 64px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    position: absolute;
+    background-size: cover;
   }
   
