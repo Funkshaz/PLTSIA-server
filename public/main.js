@@ -1,3 +1,21 @@
+// Check if logged in before doing anything else
+fetch("/plantings", { credentials: "include" })
+    .then((res) => {
+        if (res.status === 401) {
+            window.location.href = "/login.html";
+        } else {
+            return res.json();
+        }
+    })
+    .then((plantings) => {
+        if (plantings) {
+            // Load garden based on user's seeds
+            plantings.forEach((p) => {
+                plantSeed(p.tileId, p.type, p.plantedAt);
+            });
+        }
+    });
+
 const API_URL = "https://pltsia-server.onrender.com";
 
 document.addEventListener("DOMContentLoaded", () => {

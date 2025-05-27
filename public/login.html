@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Login - PLTSIA Garden</title>
+        <style>
+            body {
+                font-family: sans-serif;
+                background: #e0ffe0;
+                padding: 2em;
+                text-align: center;
+            }
+            form {
+                margin: 1em auto;
+                max-width: 300px;
+                background: white;
+                padding: 1em;
+                border-radius: 8px;
+            }
+            input {
+                display: block;
+                width: 100%;
+                padding: 0.5em;
+                margin: 0.5em 0;
+            }
+            button {
+                width: 100%;
+                padding: 0.5em;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>🌱 PLTSIA Garden Login</h1>
+
+        <form id="register-form">
+            <h2>Register</h2>
+            <input type="email" id="reg-email" placeholder="Email" required />
+            <input
+                type="password"
+                id="reg-password"
+                placeholder="Password"
+                required
+            />
+            <button type="submit">Sign Up</button>
+        </form>
+
+        <form id="login-form">
+            <h2>Login</h2>
+            <input type="email" id="login-email" placeholder="Email" required />
+            <input
+                type="password"
+                id="login-password"
+                placeholder="Password"
+                required
+            />
+            <button type="submit">Log In</button>
+        </form>
+
+        <p id="message" style="color: red"></p>
+
+        <script>
+            const message = document.getElementById("message");
+
+            async function sendAuth(url, email, password) {
+                const res = await fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    credentials: "include",
+                    body: JSON.stringify({ email, password }),
+                });
+
+                if (res.ok) {
+                    window.location.href = "/";
+                } else {
+                    const error = await res.text();
+                    message.textContent = error;
+                }
+            }
+
+            document
+                .getElementById("register-form")
+                .addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    sendAuth(
+                        "/register",
+                        document.getElementById("reg-email").value,
+                        document.getElementById("reg-password").value
+                    );
+                });
+
+            document
+                .getElementById("login-form")
+                .addEventListener("submit", (e) => {
+                    e.preventDefault();
+                    sendAuth(
+                        "/login",
+                        document.getElementById("login-email").value,
+                        document.getElementById("login-password").value
+                    );
+                });
+        </script>
+    </body>
+</html>

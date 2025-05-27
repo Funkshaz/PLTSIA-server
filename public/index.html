@@ -21,6 +21,15 @@
             <div class="soil-tile" data-id="tile-11"></div>
             <div class="soil-tile" data-id="tile-12"></div>
         </div>
+        <button onclick="logout()">Logout</button>
+        <script>
+            function logout() {
+                fetch("/logout", {
+                    method: "POST",
+                    credentials: "include",
+                }).then(() => (location.href = "/login.html"));
+            }
+        </script>
         <script src="main.js"></script>
     </body>
 </html>
