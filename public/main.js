@@ -12,7 +12,7 @@ function plantSeed(tileId, type, plantedAt) {
     const tile = document.querySelector(`[data-id="${tileId}"]`);
     if (tile && !tile.querySelector("img")) {
         const img = document.createElement("img");
-        img.src = "/assets/carrot.png"; // replace with other crops
+        img.src = "/assets/carrot.PNG"; // replace with other crops
         img.style.width = "100%";
         tile.appendChild(img);
     }
