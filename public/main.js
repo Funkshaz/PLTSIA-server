@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function addCarrotToTile(tile) {
         tile.classList.add("planted");
         const img = document.createElement("img");
-        img.src = "assets/carrot.png";
+        img.src = "assets/carrot.PNG";
         img.alt = "Carrot";
         tile.appendChild(img);
     }
