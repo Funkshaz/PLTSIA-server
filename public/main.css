@@ -1,44 +1,33 @@
-plant- {
-    height:100%;
-    width:100%;
-    display:block;
-    background:red;
+body {
+  font-family: Arial, sans-serif;
+  padding: 1rem;
+  background-color: #eef6ea;
+  text-align: center;
 }
 
-container- {
-    position: relative;
-    display:grid;
-    width:fit-content;
-    height:32px;
-    padding:4px;
-    grid-template-columns: 32px 32px 32px 32px;
-    grid-gap:4px;
-    border: 1px solid black;
+#garden {
+  display: grid;
+  grid-template-columns: repeat(3, 100px);
+  grid-gap: 10px;
+  justify-content: center;
+  margin-top: 1rem;
 }
 
-.message-box {
-    position:absolute;
-    background:white;
-    border:1px solid red;
-    border-radius: 2px;
-    padding:2px;
-    top:0;
-    left:50%;
-    transform: translate(-50%,-100%);
+.soil-tile {
+  width: 100px;
+  height: 100px;
+  background-color: #8B5E3C; /* soil brown */
+  border: 2px solid #5A3E1B;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 3rem;
+  line-height: 100px;
+  color: white;
+  user-select: none;
+  transition: background-color 0.3s ease;
 }
 
-pot- {
-    position:relative;
-    display:inline-block;
-    width:32px;
-    height:32px;
-}
-
-pot-:hover {
-    border:1px dashed black;
-}
-
-room- {
-    position:relative;
-    padding:32px;
+.soil-tile.planted {
+  background-color: #e74c3c; /* red to indicate planted */
+  cursor: default;
 }

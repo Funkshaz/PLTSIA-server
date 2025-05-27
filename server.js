@@ -1,6 +1,7 @@
 require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
+const path = require('path');
 const { MongoClient } = require('mongodb');
 
 const app = express();
@@ -8,10 +9,6 @@ const port = process.env.PORT || 3000;
 
 app.use(cors());
 app.use(express.json());
-
-const path = require('path');
-
-// Serve static files from the public folder
 app.use(express.static(path.join(__dirname, 'public')));
 
 const client = new MongoClient(process.env.MONGO_URI);
@@ -22,24 +19,34 @@ async function startServer() {
     await client.connect();
     const db = client.db('pltsia');
     plantingsCollection = db.collection('plantings');
-
     console.log('Connected to MongoDB');
 
-    // POST /plant — Add a new seed
+    // POST /plant
     app.post('/plant', async (req, res) => {
-      const seed = req.body;
-      if (!seed || !seed.type || !seed.plantedAt) {
-        return res.status(400).send('Invalid seed data');
+      const { tileId, type, plantedAt } = req.body;
+      if (!tileId || !type || !plantedAt) {
+        return res.status(400).send('Missing seed data');
       }
 
-      await plantingsCollection.insertOne(seed);
-      res.status(201).send('Seed planted!');
+      // Prevent duplicate planting on the same tile
+      const existing = await plantingsCollection.findOne({ tileId });
+      if (existing) {
+        return res.status(409).send('Tile already planted');
+      }
+
+      await plantingsCollection.insertOne({ tileId, type, plantedAt });
+      res.status(201).send('Seed planted');
     });
 
-    // GET /plantings — Return all seeds
+    // GET /plantings
     app.get('/plantings', async (req, res) => {
       const seeds = await plantingsCollection.find().toArray();
       res.json(seeds);
+    });
+
+    // Serve frontend
+    app.get('/', (req, res) => {
+      res.sendFile(path.join(__dirname, 'public', 'index.html'));
     });
 
     app.listen(port, () => {
@@ -52,4 +59,3 @@ async function startServer() {
 }
 
 startServer();
-
